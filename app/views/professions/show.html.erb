@@ -1,0 +1,20 @@
+<h1><%= @profession.name %></h1>
+
+doctors:
+<ul>
+  <% Doctor.where(profession_id: @profession.id).each do |doctor| %>
+    <li>
+      <%= link_to doctor.name, new_appointment_path(doctor_id: doctor.id)%>
+    </li>
+  <% end %>
+</ul>
+
+
+<ul>
+  <li><%= link_to "Edit", edit_profession_path(@profession) %></li>
+  <li><%= link_to "Destroy", profession_path(@profession), data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  } %></li>
+</ul>
+

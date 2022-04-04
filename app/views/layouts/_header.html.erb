@@ -1,0 +1,14 @@
+<div class="header">
+  <%= link_to 'Appointments', appointments_path %>
+  <% if doctor_signed_in? %>
+    <%= link_to 'Profile', edit_doctor_registration_path %>
+    <%= link_to 'Log out', destroy_doctor_session_path, method: :delete %>
+  <% elsif user_signed_in? %>
+    <%= link_to 'Appoint to doctor', professions_path %>
+    <%= link_to 'Profile', edit_user_registration_path %>
+    <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'User login', user_session_path %>
+    <%= link_to 'Doctor login', doctor_session_path %>
+  <% end %>
+</div>

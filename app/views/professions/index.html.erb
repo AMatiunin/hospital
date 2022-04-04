@@ -1,0 +1,17 @@
+<h1>Please select category of doctor:</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Category</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% @professions.each do |profession| %>
+    <tr>
+      <td><%= link_to profession.name, profession %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

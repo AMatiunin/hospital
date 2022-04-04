@@ -1,0 +1,23 @@
+<ul>
+  <% if doctor_signed_in? %>
+    <h1>Appointments from patients</h1>
+
+    <% @appointments.where(doctor_id: current_doctor.id).each do |appoint| %>
+      <li>
+        Patient: <%= appoint.user.name %>
+        Date and time: <%= appoint.date %>
+        <%= link_to 'add recommendation', appoint if appoint.advices.blank? %>
+      </li>
+    <% end %>
+  <% elsif user_signed_in? %>
+    <h1>Appointments to doctors</h1>
+
+    <% @appointments.where(user_id: current_user.id).each do |appoint| %>
+      <li>
+        Doctor: <%= appoint.doctor.name %>
+        Date and time: <%= appoint.date %>
+        <%= link_to 'view recommendations', appoint unless appoint.advices.blank? %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

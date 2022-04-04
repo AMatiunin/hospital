@@ -1,0 +1,17 @@
+<%= form_with model: @appointment, class: 'col' do |form| %>
+
+  <div>
+    <%= form.label 'Time for appointment' %><br>
+    <%= form.datetime_field :date %>
+    <% appointment.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <%= form.hidden_field :doctor_id, value: params[:doctor_id] %>
+
+  <div>
+    <%= form.submit 'Save' %>
+  </div>
+
+<% end %>
