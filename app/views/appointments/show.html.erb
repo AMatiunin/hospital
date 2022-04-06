@@ -3,12 +3,12 @@
 <h1> at: <%= @appointment.date %></h1>
 <ul>
   <h2>Recomendations:</h2>
-  <% @appointment.advices.each do |advice| %>
+  <p><% @appointment.advices.each do |advice|%>
     <p><%= advice.body %> </p>
-  <% end %>
+    <% end %>
 </ul>
 
-<% if doctor_signed_in? %>
+  <% if doctor_signed_in? or current_user.admin? %>
   <h2>Write recommendation:</h2>
   <%= form_with model: [@appointment, @appointment.advices.build] do |form| %>
     <%= form.hidden_field :doctor_id, value: @appointment.doctor_id %>
