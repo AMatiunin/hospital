@@ -8,9 +8,10 @@
         Patient: <%= appoint.user.name %>
         Date and time: <%= appoint.date %>
         <%= link_to 'edit appointment', appoint %>
-        <%= link_to 'with recommendations', appoint unless appoint.advices.blank? %>
+        <%= link_to 'with recommendations', appoint unless appoint.advice.blank? %>
       </li>
     <% end %>
+
   <% elsif current_user.is_a?(User) %>
     <h1>Appointments to doctors</h1>
 
@@ -18,17 +19,17 @@
       <li>
         Doctor: <%= appoint.doctor.name %>
         Date and time: <%= appoint.date %>
-        <%= link_to 'view recommendations', appoint unless appoint.advices.blank? %>
+        <%= link_to 'view recommendations', appoint unless appoint.advice.blank? %>
       </li>
     <% end %>
+
   <% elsif current_user.is_a?(Doctor)%>
     <h1>Appointments from patients</h1>
-
     <% @appointments.where(doctor_id: current_doctor.id).each do |appoint| %>
       <li>
         Patient: <%= appoint.user.name %>
         Date and time: <%= appoint.date %>
-        <%= link_to 'add recommendation', appoint if appoint.advices.blank? %>
+        <%= link_to 'add recommendation', appoint if appoint.advice.blank? %>
       </li>
     <% end %>
   <% end %>

@@ -1,7 +1,7 @@
 class AdvicesController < ApplicationController
   def create
     @appointment = Appointment.find(params[:appointment_id])
-    @advice = @appointment.advices.create(advice_params)
+    @advice = @appointment.create_advice(advice_params)
     redirect_to appointment_path(@appointment)
   end
 

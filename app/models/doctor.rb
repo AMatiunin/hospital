@@ -1,4 +1,6 @@
 class Doctor < ApplicationRecord
+  LIMIT_OF_APPOINTMENTS = 10
+
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable, :authentication_keys => [:phone]
 
@@ -15,7 +17,7 @@ class Doctor < ApplicationRecord
   end
 
   def can_have_more?
-    self.appointments.count - self.advices.count < 10
+    self.appointments.count - self.advices.count <= LIMIT_OF_APPOINTMENTS
   end
 
   validates :phone, presence: true, length: { is: 10 }, uniqueness: true

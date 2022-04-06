@@ -1,25 +1,23 @@
 <h1>Patient: <%= User.find(@appointment.user_id).name %></h1>
 <h1>Has appointment with doctor: <%= Doctor.find(@appointment.doctor_id).name %><br/></h1>
 <h1> at: <%= @appointment.date %></h1>
-<ul>
-  <h2>Recomendations:</h2>
-  <p><% @appointment.advices.each do |advice|%>
-    <p><%= advice.body %> </p>
+<br>
+  <h1>
+  <% if @appointment.advice.present?%>
+    Recomendation:
+         <%= @appointment.advice.body %>
+    <% elsif doctor_signed_in? or current_user.admin? %>
+      Write recommendation:
+      <%= form_with model: [@appointment, @appointment.create_advice], class: 'col' do |form| %>
+        <%= form.hidden_field :doctor_id, value: @appointment.doctor_id %>
+        <%= form.hidden_field :appointment_id, value: @appointment.id %>
+      <p>
+        <%= form.label 'Recomendation' %><br>
+        <%= form.text_area :body, rows: 8, style: 'width:100%;' %>
+      </p>
+      <p>
+        <%= form.submit 'add' %>
+      </p>
     <% end %>
-</ul>
-
-  <% if doctor_signed_in? or current_user.admin? %>
-  <h2>Write recommendation:</h2>
-  <%= form_with model: [@appointment, @appointment.advices.build] do |form| %>
-    <%= form.hidden_field :doctor_id, value: @appointment.doctor_id %>
-    <%= form.hidden_field :appointment_id, value: @appointment.id %>
-    <p>
-      <%= form.label 'Recomendation' %><br>
-      <%= form.text_area :body %>
-    </p>
-    <p>
-      <%= form.submit 'add recommendation' %>
-    </p>
   <% end %>
-<% end %>
-
+</h1>
