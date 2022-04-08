@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :authentication_keys => [:phone]
+         :rememberable, :validatable, :authentication_keys => [:phone]
 
   def email_required?
     false
@@ -13,6 +13,8 @@ class User < ApplicationRecord
   def will_save_change_to_email?
     false
   end
+
   validates :phone, presence: true, length: { is: 10 }, uniqueness: true
+  validates :name, presence: true
 
 end

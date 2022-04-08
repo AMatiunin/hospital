@@ -1,4 +1,5 @@
 class Advice < ApplicationRecord
   belongs_to :doctor
-  belongs_to :appointment
+  validates :appointment_id, presence: true
+  validates :body, presence: true
 end

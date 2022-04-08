@@ -5,11 +5,15 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user! or :authenticate_doctor!
 
+  rescue_from Exceptions::LimitReached do
+    error!({ error: 'Limit of appointments reached' }, 401)
+  end
 
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_in, keys: [:phone, :name])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:phone, :name, :profession_id])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:phone, :name, :profession_id])
   end
 end

@@ -15,3 +15,7 @@
   <% end %>
   </tbody>
 </table>
+
+<% if current_user.is_a?(User) && current_user.admin? %>
+  <%= link_to "Add Profession", new_profession_path%>
+<% end %>

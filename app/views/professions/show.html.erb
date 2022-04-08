@@ -1,20 +1,25 @@
 <h1><%= @profession.name %></h1>
-
-doctors:
-<ul>
-  <% Doctor.where(profession_id: @profession.id).each do |doctor| %>
-    <li>
-      <%= link_to doctor.name, new_appointment_path(doctor_id: doctor.id)%>
+<% if current_user.is_a?(User) %>
+  Doctors:
+  <ul>
+    <% Doctor.where(profession_id: @profession.id).each do |doctor| %>
+      <li>
+        <% if doctor.can_have_more? %>
+          <%= link_to doctor.name, new_appointment_path(doctor_id: doctor.id, user_id: current_user.id) %>
+        <% else %>
+          <%= "#{doctor.name}, Sorry, too busy for another appointment" %>
+        <% end %>
+    <% end %>
     </li>
-  <% end %>
-</ul>
+  </ul>
+<% end %>
 
-
-<ul>
-  <li><%= link_to "Edit", edit_profession_path(@profession) %></li>
-  <li><%= link_to "Destroy", profession_path(@profession), data: {
-    turbo_method: :delete,
-    turbo_confirm: "Are you sure?"
-  } %></li>
-</ul>
-
+<% if current_user.is_a?(User) && current_user.admin? %>
+  <ul>
+    <li><%= link_to "Edit", edit_profession_path(@profession) %></li>
+    <li><%= link_to "Destroy", profession_path(@profession), data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure?"
+    } %></li>
+  </ul>
+<% end %>
