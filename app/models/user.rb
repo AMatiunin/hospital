@@ -15,5 +15,6 @@ class User < ApplicationRecord
   end
 
   validates :phone, presence: true, length: { is: 10 }, uniqueness: true
+  validates :name, presence: true
 
 end

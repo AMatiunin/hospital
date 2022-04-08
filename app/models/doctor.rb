@@ -21,6 +21,7 @@ class Doctor < ApplicationRecord
   end
 
   validates :phone, presence: true, length: { is: 10 }, uniqueness: true
+  validates :name, presence: true
   has_many :appointments
   has_many :advices
   belongs_to :profession

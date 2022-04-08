@@ -13,7 +13,7 @@ RSpec.describe Doctor, type: :model do
 
   it "is valid without a name" do
     subject.name = nil
-    expect(subject).to be_valid
+    expect(subject).to_not be_valid
   end
 
   it "is invalid without a phone" do
